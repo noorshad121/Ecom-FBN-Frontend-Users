@@ -1,39 +1,50 @@
- import React, { useContext } from 'react'
-import {Routes, Route} from "react-router-dom"
-import Home from "./pages/Home.jsx"
-import Collection from "./pages/Collection.jsx"
-import About from "./pages/About.jsx"
-import Contact from "./pages/Contact.jsx"
-import Product from "./pages/Product.jsx"
-import PlaceOrder from "./pages/PlaceOrder.jsx"
-import Orders from "./pages/Orders.jsx"    
-import Login from "./pages/Login.jsx"
-import Cart from "./pages/Cart.jsx"
-import Navbar from "./components/Navbar.jsx"
-import Footer from './components/Footer.jsx'
-import SearchBar from './components/SearchBar.jsx'
-import { ShopContext } from './context/ShopContext.jsx'
+import React, { useContext, lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
+import SearchBar from "./components/SearchBar.jsx";
+import Loader from "./components/Loader.jsx";
+
+import { ShopContext } from "./context/ShopContext.jsx";
+
+// Lazy loaded pages
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Collection = lazy(() => import("./pages/Collection.jsx"));
+const About = lazy(() => import("./pages/About.jsx"));
+const Contact = lazy(() => import("./pages/Contact.jsx"));
+const Product = lazy(() => import("./pages/Product.jsx"));
+const PlaceOrder = lazy(() => import("./pages/PlaceOrder.jsx"));
+const Orders = lazy(() => import("./pages/Orders.jsx"));
+const Login = lazy(() => import("./pages/Login.jsx"));
+const Cart = lazy(() => import("./pages/Cart.jsx"));
 
 const App = () => {
-  const {token} = useContext(ShopContext);
+  const { token } = useContext(ShopContext);
+
   return (
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <Navbar />
       <SearchBar />
-      <Routes>
-        < Route path='/' element={<Home />} />
-        < Route path='/collection' element={<Collection />} />
-        < Route path='/about' element={<About />} />
-        < Route path='/contact' element={<Contact />} />
-        < Route path='/product/:productId' element={<Product />} />
-        < Route path='/cart' element={token ?<Cart /> : <Login />} />
-        < Route path='/login' element={<Login />} />
-        < Route path='/place-order' element={<PlaceOrder />} />
-        < Route path='/orders' element={<Orders />} />
-      </Routes>
+
+      {/* Lazy loading starts here */}
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/collection" element={<Collection />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/cart" element={token ? <Cart /> : <Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/place-order" element={<PlaceOrder />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </Suspense>
+
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
