@@ -1,5 +1,3 @@
-
-
 const Footer = () => {
   return (
     <div>
@@ -10,9 +8,9 @@ const Footer = () => {
             <span className="text-blue-500">CLOTHES</span>
           </h1>
           <p className="w-full md:w-2/3 text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nisi
-            nulla ad assumenda voluptate vel distinctio quos porro! Aspernatur
-            debitis obcaecati unde blanditiis aperiam! Suscipit
+            FBN Clothes is your destination for trendy, affordable, and
+            high-quality fashion. We bring you the latest styles designed for
+            comfort, confidence, and everyday elegance.
           </p>
         </div>
         <div>
