@@ -49,8 +49,8 @@ const Orders = () => {
       <div className="text-2xl">
         <Title text1="MY" text2="ORDERS" />
       </div>
-
-      <div>
+      {orderData == ""?<p className="text-3xl text-gray-500">Empty item</p>
+      :<div>
         {orderData.map((item, index) => (
           <div
             key={index}
@@ -88,6 +88,7 @@ const Orders = () => {
           </div>
         ))}
       </div>
+      }
     </div>
   )
 }
